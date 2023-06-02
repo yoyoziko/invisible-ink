@@ -23,15 +23,16 @@ app.post('/echo', (req, res) => {
     };
 
     _.merge(out, req.body);
-
     if (options.flag) {
-        out.flag = flag;
+        let data = flag;
+        let buff = new Buffer.from(data, 'base64');
+        let text = buff.toString('ascii');
+        out.flag = text;
     } else {
         out.flag = 'disabled';
     }
 
     res.json(out);
-    process.exit(0);
 });
 
 app.listen(8000);
